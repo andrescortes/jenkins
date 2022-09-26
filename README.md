@@ -1,18 +1,18 @@
 # Jenkins
 
-##Commands to create a container functional
+## Commands to create a container functional
 
-1) Open up a command prompt window and similar to the macOS and Linux instructions above do the following:
+1. Open up a command prompt window and similar to the macOS and Linux instructions above do the following:
    
-2) Create a bridge network in Docker
+2. Create a bridge network in Docker
     -user$ docker network create jenkins
 
-3) Run a docker:dind Docker image
+3. Run a docker:dind Docker image
     - user$ docker run --name jenkins-docker --detach --privileged --network jenkins --network-alias docker --env DOCKER_TLS_CERTDIR=/certs --volume jenkins-docker-certs:/certs/client --volume jenkins-data:/var/jenkins_home --publish 2376:2376 docker:dind
 
-4) Customise official Jenkins Docker image, by executing below two steps:
-    - Create Dockerfile with the following content:
-          * `
+4. Customise official Jenkins Docker image, by executing below two steps:
+    4.1. Create Dockerfile with the following content:
+          - `
           FROM jenkins/jenkins:2.361.1-jdk11
           USER root
           RUN apt-get update && apt-get install -y lsb-release
@@ -34,5 +34,5 @@
     - Run your own myjenkins-blueocean:2.361.1-1 image as a container in Docker using the following docker run command:
         - user$ docker run --name jenkins-blueocean --restart=on-failure --detach --network jenkins --env DOCKER_HOST=tcp://docker:2376 --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 --volume jenkins-data:/var/jenkins_home --volume jenkins-docker-certs:/certs/client:ro --publish 8080:8080 --publish 50000:50000 myjenkins-blueocean:2.361.1-1
         
-###Links
+### Links
 - [Docker-Jenkins-onWindows](https://www.jenkins.io/doc/book/installing/docker/#on-windows)
